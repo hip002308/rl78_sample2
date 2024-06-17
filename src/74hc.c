@@ -773,15 +773,15 @@ UCHAR  IC_74HC4511_Judge_State( UCHAR LE_in, UCHAR BI_in, UCHAR LT_in )
 UCHAR  IC_74HC4511_Evaluate( UCHAR State, UCHAR A_in, UCHAR B_in, UCHAR C_in, UCHAR D_in )
 {
 	/*							   abcdefgh		*/
-	UCHAR ucRet[11] =  { 0b11111101, 0b01100001, 0b11011011, 0b11110011, 0b01100111, 
-							     0b10110111, 0b00111111, 0b11100001, 0b11111111, 0b11100111, 0b00000001 };
+	UCHAR ucRet[11] =  { 0b11111100, 0b01100000, 0b11011010, 0b11110010, 0b01100110, 
+							     0b10110110, 0b00111110, 0b11100000, 0b11111110, 0b11100110, 0b00000000 };
 	UCHAR	ucValue;
 	
 	switch(State)
 	{
 		case 0:
 			ucValue = A_in + (B_in << 1) + (C_in << 2) + (D_in << 3);
-			if(ucValue > 10) ucValue = 10;
+			if (ucValue > 10) ucValue = 10;
 			ByteMemSet(g74HC4511_LastNum, g74HC4511_Count, ucValue);
 			break;
 		case 1:
@@ -833,17 +833,6 @@ void IC74HC4511_Counter_Clear( void )
 void IC74HC4511_Counter( void )
 {
 	g74HC4511_Count ++;
-}
-
-/*******************************************************************************
-* Function Name: IC74HC4511_Counter_Get
-* Description  : IC74HC4511 Panel Counter Get.
-* Arguments    : none
-* Return Value : g74HC4511_Count
-********************************************************************************/
-UCHAR IC74HC4511_Counter_Get( void )
-{
-	return g74HC4511_Count;
 }
 #endif /* end of defined IC74HC4511_USED */
 

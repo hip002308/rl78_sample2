@@ -100,9 +100,11 @@ Macro definitions
 /*******************************************************************************
 ** BCNT_PROC	
 ********************************************************************************/
-#define	BCNT_PROC(max, mr, cp0, cp1, O0, O1, O2, O3)							\
+#define	BCNT_PROC(max, mr, cp0, cp1, dot, O0, O1, O2, O3)							\
 {																				\
 		UCHAR ucret;															\
+		UCHAR dotret;															\
+		dotret = DOT_Evaluate(cp1);															\
 		ucret = BCNT_Evaluate(mr, cp0, cp1, max);								\
 		O0 = (ucret & 0x01);													\
 		ucret >>= 1;															\
@@ -111,6 +113,7 @@ Macro definitions
 		O2 = (ucret & 0x01);													\
 		ucret >>= 1;															\
 		O3 = (ucret & 0x01);													\
+		dot = dotret & ~O0 & ~O1 & ~O2 & ~O3 ? 0x01 : dot;								\
 		BCNT_Counter();															\
 }
 
@@ -135,7 +138,7 @@ void	CNT_Counter( void );
 void	BCNT_Initialize( void );
 void	BCNT_Counter_Clear( void );
 UCHAR	BCNT_Evaluate( UCHAR mr, UCHAR cp0, UCHAR cp1, UCHAR max );
+UCHAR	DOT_Evaluate( UCHAR cp);
 void	BCNT_Counter( void );
-UCHAR	BCNT_Counter_Get( void );
 
 #endif /* _COUNTER_H_ */
