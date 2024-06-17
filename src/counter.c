@@ -237,7 +237,7 @@ UCHAR BCNT_Evaluate( UCHAR mr, UCHAR cp0, UCHAR cp1, UCHAR max )
 		count = max;
 	}
 	
-	/* If the count value is larger than the count maximum value, it returns it to 0. */
+	/* If the count value is smaller than the count minimum value, it returns it to max. */
 	if (count > max) {
 		/* (Count value of binary counter)<-max */
 		count = max;
@@ -281,7 +281,6 @@ UCHAR DOT_Evaluate( UCHAR cp )
 	/* Last value of cp0 of binary counter is acquired. */
 	lastcp = BitMemGet(g_ucBCNT_LastCp1, g_ucBCNT_Count);
 	
-	/* If the count value is larger than the count maximum value, it returns it to 0. */
 	if (lastcp == HIGH && cp == LOW) {
 		return 0x01;
 	}
