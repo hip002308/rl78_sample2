@@ -217,8 +217,8 @@ UCHAR BCNT_Evaluate( UCHAR mr, UCHAR cp0, UCHAR cp1, UCHAR max )
 		if (cp0 == LOW) {
 			if (cp1 == LOW) {
 				if (lastcp1 == HIGH) {
-					/* (Count value of binary counter)++ */
-					count++;
+					/* (Count value of binary counter)-- */
+					count--;
 				}
 			}
 		}
@@ -233,14 +233,14 @@ UCHAR BCNT_Evaluate( UCHAR mr, UCHAR cp0, UCHAR cp1, UCHAR max )
 	}
 	
 	else {
-		/* (Count value of binary counter)<-0 */
-		count = 0;
+		/* (Count value of binary counter)<-max */
+		count = max;
 	}
 	
 	/* If the count value is larger than the count maximum value, it returns it to 0. */
 	if (count > max) {
-		/* (Count value of binary counter)<-0 */
-		count = 0;
+		/* (Count value of binary counter)<-max */
+		count = max;
 	}
 	
 	/* This value of cp0 of binary counter is preserved. */
@@ -269,14 +269,23 @@ void BCNT_Counter( void )
 }
 
 /*******************************************************************************
-* Function Name: BCNT_Counter_Get
-* Description  : COUNTER Panel BCDCNT_Counter Get.
-* Arguments    : none
-* Return Value : g_ucBCNT_Count
+* Function Name: DOT_Evaluate
+* Description  : cp1 change watcher
+* Arguments    : cp ... cp of binary counter
+* Return Value : if changed , it returns 0x01
 ********************************************************************************/
-UCHAR BCNT_Counter_Get( void )
+UCHAR DOT_Evaluate( UCHAR cp )
 {
-	return g_ucBCNT_Count;
+	UCHAR	lastcp;		/* Last input value of cp0 terminal */
+	
+	/* Last value of cp0 of binary counter is acquired. */
+	lastcp = BitMemGet(g_ucBCNT_LastCp1, g_ucBCNT_Count);
+	
+	/* If the count value is larger than the count maximum value, it returns it to 0. */
+	if (lastcp == HIGH && cp == LOW) {
+		return 0x01;
+	}
+	return 0x00;
 }
 
 #endif /* end of defined BCNT_USED */
