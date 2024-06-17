@@ -136,5 +136,6 @@ void	BCNT_Initialize( void );
 void	BCNT_Counter_Clear( void );
 UCHAR	BCNT_Evaluate( UCHAR mr, UCHAR cp0, UCHAR cp1, UCHAR max );
 void	BCNT_Counter( void );
+UCHAR	BCNT_Counter_Get( void );
 
 #endif /* _COUNTER_H_ */

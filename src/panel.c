@@ -38,6 +38,7 @@ Includes <System Includes> , "Project Includes"
 #include "common.h"
 #include "config.h"
 #include "panel.h"
+#include "counter.h"
 
 /*******************************************************************************
 Exported global variables and functions (to be accessed by other files)
@@ -65,7 +66,9 @@ ST_DTC_DATA __near dtc_controldata[24];
 	UCHAR F0919 = 0;
 	UCHAR F0920 = 0;
 	UCHAR F1321 = 0;
-
+	UCHAR g_I_18_pushed = DOWN;
+static	UINT  g_I_18_counter = 0;
+	
 /*----------------------------*/
 
 void panel_init0(void)
@@ -92,5 +95,17 @@ void panel(void)
 	DGOUT_PROC( 51, F0918, HIGH );
 	DGOUT_PROC( 52, F0919, HIGH );
 	DGOUT_PROC( 53, F0920, HIGH );
-	DGOUT_PROC( 54, fOFF, HIGH );
+	DGOUT_PROC( 54, F1321, HIGH );
+	// SW(PUSH BTN)‚ª‰Ÿ‚µI‚í‚Á‚½‚ç1‰ñ‚¾‚¯ğŒ‚ğ–‚½‚·
+	if (g_I_18_pushed && !I_18) {
+		g_I_18_pushed = UP;
+		if (g_I_18_counter==10) {
+			F1321=fON;
+		}
+	}
+	// SW(PUSH BTN)‰Ÿ‚µ‚½‚çˆê‰ñ‚¾‚¯ğŒ‚ğ–‚½‚·
+	else if (!g_I_18_pushed && I_18) {
+		g_I_18_pushed = DOWN;
+		g_I_18_counter++;
+	}
 }

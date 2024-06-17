@@ -391,6 +391,7 @@ UCHAR	IC_74HC4511_Evaluate( UCHAR State, UCHAR A_in, UCHAR B_in, UCHAR C_in, UCH
 void	IC74HC4511_Initialize( void );
 void	IC74HC4511_Counter_Clear( void );
 void	IC74HC4511_Counter( void );
+UCHAR	IC74HC4511_Counter_Get( void );
 UCHAR	IC_74HC166_Judge_State( UCHAR CLR_in, UCHAR SL_in, UCHAR CK_INH_in, UCHAR CK_in );
 UCHAR	IC_74HC166_Out_QH( UCHAR State, UCHAR S_IN_in, UCHAR A_in, UCHAR B_in,  UCHAR C_in, UCHAR D_in, UCHAR E_in, UCHAR F_in, UCHAR G_in, UCHAR H_in );
 void	IC74HC166_Initialize( void );

@@ -268,4 +268,15 @@ void BCNT_Counter( void )
 	g_ucBCNT_Count++;
 }
 
+/*******************************************************************************
+* Function Name: BCNT_Counter_Get
+* Description  : COUNTER Panel BCDCNT_Counter Get.
+* Arguments    : none
+* Return Value : g_ucBCNT_Count
+********************************************************************************/
+UCHAR BCNT_Counter_Get( void )
+{
+	return g_ucBCNT_Count;
+}
+
 #endif /* end of defined BCNT_USED */
